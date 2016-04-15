@@ -34,7 +34,7 @@ int cover(int* colors[], int rows, int cols){
 	
 	colors[first_white_row][first_white_col] = 1;
 
-	//第一个点，向右，第二个点只能向下
+	//第一个点，向右，第二个点在右下
 	if(first_white_col + 1 < cols && colors[first_white_row][first_white_col + 1] == 0 
 		&& first_white_row + 1 < rows &&  colors[first_white_row+1][first_white_col + 1] == 0 ){
 		colors[first_white_row][first_white_col+1] = 1;
@@ -50,11 +50,11 @@ int cover(int* colors[], int rows, int cols){
 	//第一个点，向下
 	if(first_white_row + 1 < rows && colors[first_white_row+1][first_white_col] == 0){
 		colors[first_white_row+1][first_white_col] = 1;
-		if(first_white_col - 1 >= 0 && colors[first_white_row-1][first_white_col+1] == 0){
-			//第二个点向左
-			colors[first_white_row-1][first_white_col+1] = 1;
+		if(first_white_col - 1 >= 0 && colors[first_white_row+1][first_white_col-1] == 0){
+			//第二个点在左下
+			colors[first_white_row+1][first_white_col-1] = 1;
 			result += cover(colors, rows, cols);
-			colors[first_white_row-1][first_white_col+1] = 0;
+			colors[first_white_row+1][first_white_col-1] = 0;
 		}
 		if(first_white_col + 1 < cols && colors[first_white_row+1][first_white_col+1] == 0){
 			//第二个点向右
@@ -64,6 +64,18 @@ int cover(int* colors[], int rows, int cols){
 		}
 
 		colors[first_white_row+1][first_white_col] = 0;
+	}
+
+	//第一个点，向右，第二个点，向下
+	if(first_white_row + 1 < rows && colors[first_white_row+1][first_white_col] == 0
+		&& first_white_col + 1 < cols && colors[first_white_row][first_white_col+1] == 0){
+		colors[first_white_row+1][first_white_col] = 1;
+		colors[first_white_row][first_white_col+1] = 1;
+
+		result += cover(colors, rows, cols);
+
+		colors[first_white_row+1][first_white_col] = 0;
+		colors[first_white_row][first_white_col+1] = 0;
 	}
 
 	colors[first_white_row][first_white_col] = 0;
