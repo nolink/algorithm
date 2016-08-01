@@ -71,7 +71,7 @@ void kmp(char* haystack, int h_len, char* needle, int n_len){
 
 	int begin=0, matched=0;
 
-	while(begin <= n_len-matched){
+	while(begin <= h_len-matched){
 
 		if(matched < n_len && haystack[begin+matched] == needle[matched]){
 			matched++;
@@ -95,12 +95,14 @@ void kmp(char* haystack, int h_len, char* needle, int n_len){
 
 int main(int argc, char const *argv[])
 {
-	int i=0;
+	// int i=0;
 
-	int* pi = partial("aabaabac", 8);
-	for(i=0;i<8;i++){
-		printf("%d\n", pi[i]);
-	}
+	// int* pi = partial("aabaabac", 8);
+	// for(i=0;i<8;i++){
+	// 	printf("%d\n", pi[i]);
+	// }
+
+	kmp("barfoothefoobarman",strlen("barfoothefoobarman"), "bar", 3);
 
 	return 0;
 }
