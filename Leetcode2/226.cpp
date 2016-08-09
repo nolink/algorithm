@@ -10,10 +10,11 @@
 class Solution {
 public:
     TreeNode* invertTree(TreeNode* root) {
-        if(NULL == root) return root;
-        TreeNode* aux = root->left;
-        root->left = invertTree(root->right);
-        root->right = invertTree(aux);
+        if(root){
+            TreeNode* aux = root->left;
+            root->left = invertTree(root->right);
+            root->right = invertTree(aux);
+        }
         return root;
     }
 };
