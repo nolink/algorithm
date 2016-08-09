@@ -10,13 +10,9 @@ public:
             unordered_map<string, int> t(m.begin(), m.end());
             for(int j=0;j<wsize;j++){
                 auto sub = s.substr(i+j*wlen,wlen);
-                auto cnt = t.count(sub);
-                if(cnt == 0){
-                    break;
-                }else{
-                    if(t[sub] == 1) t.erase(sub);
-                    else t[sub]--;
-                }
+                if(t.count(sub) == 0) break;
+                else if(t[sub] == 1) t.erase(sub);
+                else t[sub]--;
             }
             if(t.empty()) ret.push_back(i);
         }
