@@ -1,25 +1,19 @@
 class Solution {
 public:
-    void backtrack(vector<vector<int>>& ret, vector<int> chosen, queue<int>& nums){
-        if(nums.empty()){
-            ret.push_back(chosen);
+    void backtrack(vector<vector<int>>& ret, vector<int>& nums, int idx){
+        if(idx >= nums.size()){
+            ret.push_back(nums);
             return;
         }
-        int n = nums.size(), len = chosen.size();
-        chosen.push_back(-1);
-        for(int i=0;i<n;i++){
-            int aux = nums.front();
-            chosen[len] = aux;
-            nums.pop();
-            backtrack(ret, chosen, nums);
-            nums.push(aux);
+        for(int i = idx;i < nums.size();i++){
+            swap(nums[idx], nums[i]);
+            backtrack(ret, nums, idx+1);
+            swap(nums[i], nums[idx]);
         }
     }
     vector<vector<int>> permute(vector<int>& nums) {
         vector<vector<int>> ret;
-        queue<int> q;
-        for(auto n : nums) q.push(n);
-        backtrack(ret, vector<int>(), q);
+        backtrack(ret, nums, 0);
         return ret;
     }
 };
